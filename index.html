@@ -31,13 +31,22 @@
           class="movie__input"
           placeholder="Добавить фильм"
         />
-        <button id="addMovieBtn" class="add-movie-btn">
-          <img src="icons/arrow-right-icon.png" />
-        </button>
+        <img
+          id="addMovieBtn"
+          class="add-movie-btn"
+          src="icons/arrow-right-icon.png"
+        />
       </div>
 
       <ol id="movieList" class="movie-list">
-        <li></li>
+        <li id="movieTitleWrapper" class="movie-title-wrapper shaded">
+          <p id="movieTitle" class="movie-title crossed-out">
+            Остров проклятых
+          </p>
+        </li>
+        <li id="movieTitleWrapper" class="movie-title-wrapper">
+          <p id="movieTitle" class="movie-title">Поймай меня, если сможешь</p>
+        </li>
       </ol>
     </div>
     <script src="index.js"></script>
