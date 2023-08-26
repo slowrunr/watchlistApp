@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arimo&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="icons/watchlist-icon.png" />
+    <title>my watchlist app</title>
+  </head>
+  <body>
+    <header>
+      <p class="header-title">список фильмов</p>
+      <p class="header-year">2023</p>
+    </header>
+    <h1>Хочу посмотреть:</h1>
+
+    <div class="app-container">
+      <div class="input-wrapper">
+        <input
+          autocomplete="off"
+          type="text"
+          id="movieInput"
+          class="movie__input"
+          placeholder="Добавить фильм"
+        />
+        <button id="addMovieBtn" class="add-movie-btn">
+          <img src="icons/arrow-right-icon.png" />
+        </button>
+      </div>
+
+      <ol id="movieList" class="movie-list">
+        <li></li>
+      </ol>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
