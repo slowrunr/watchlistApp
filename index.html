@@ -18,19 +18,24 @@
   <body>
     <header>
       <p class="header-title">список фильмов</p>
+      <!-- потом можно переделать в выпадающее меню из разных списков (например: список сериалов, концертов) -->
       <p class="header-year">2023</p>
+      <!-- можно тоже сделать список для разных лет -->
     </header>
     <h1>Хочу посмотреть:</h1>
 
     <div class="app-container">
-      <div class="input-wrapper">
-        <input
-          autocomplete="off"
-          type="text"
-          id="movieInput"
-          class="movie__input"
-          placeholder="Добавить фильм"
-        />
+      <div class="input-data">
+        <div class="movie-input-wrapper">
+          <input
+            autocomplete="off"
+            type="text"
+            id="movieInput"
+            class="movie-input"
+            placeholder="Добавить фильм"
+          />
+        </div>
+
         <img
           id="addMovieBtn"
           class="add-movie-btn"
@@ -39,13 +44,31 @@
       </div>
 
       <ol id="movieList" class="movie-list">
-        <li id="movieTitleWrapper" class="movie-title-wrapper shaded">
-          <p id="movieTitle" class="movie-title crossed-out">
-            Остров проклятых
-          </p>
+        <li id="movieTitleWrapper" class="movie-title-wrapper">
+          <div class="checkbox-wrapper">
+            <button class="checkbox"></button>
+          </div>
+          <p id="movieTitle" class="movie-title">Остров проклятых</p>
+          <div class="close-btn-wrapper">
+            <img
+              id="removeFromListBtn"
+              class="remove-from-list-btn"
+              src="icons/close-block-icon.png"
+            />
+          </div>
         </li>
         <li id="movieTitleWrapper" class="movie-title-wrapper">
+          <div class="checkbox-wrapper">
+            <button class="checkbox"></button>
+          </div>
           <p id="movieTitle" class="movie-title">Поймай меня, если сможешь</p>
+          <div class="close-btn-wrapper">
+            <img
+              id="removeFromListBtn"
+              class="remove-from-list-btn"
+              src="icons/close-block-icon.png"
+            />
+          </div>
         </li>
       </ol>
     </div>
