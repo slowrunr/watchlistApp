@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="dropdown-menu.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,8 +18,35 @@
   </head>
   <body>
     <header>
-      <p class="header-title">список фильмов</p>
-      <!-- потом можно переделать в выпадающее меню из разных списков (например: список сериалов, концертов) -->
+      <!-- <p class="header-title">список фильмов</p> -->
+
+      <div id="dropdownMenu" class="dropdown">
+        <p class="header-title">список фильмов</p>
+        <ul class="watchlist-menu">
+          <li
+            class="menu-item"
+            onclick="show('список сериалов')"
+            value="список сериалов"
+          >
+            список сериалов
+          </li>
+          <li
+            class="menu-item"
+            onclick="show('список концертов')"
+            value="список концертов"
+          >
+            список концертов
+          </li>
+          <li
+            class="menu-item"
+            onclick="show('список спектаклей')"
+            value="список спектаклей и выставок"
+          >
+            список спектаклей и выставок
+          </li>
+        </ul>
+      </div>
+
       <p class="header-year">2023</p>
       <!-- можно тоже сделать список для разных лет -->
     </header>
@@ -73,5 +101,6 @@
       </ol>
     </div>
     <script src="index.js"></script>
+    <script src="dropdown-menu.js"></script>
   </body>
 </html>
