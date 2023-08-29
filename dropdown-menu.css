@@ -37,6 +37,8 @@
   top: 42px;
   left: -1px;
   width: 185px;
+  height: 112px;
+  padding: 12px;
   background: #6532f8;
   border-radius: 25px;
   box-shadow: 0 30px 30px rgba(0, 0, 0, 0.05);
@@ -46,15 +48,15 @@
 }
 
 .dropdown.active .watchlist-menu {
-  padding: 10px;
   display: block;
   cursor: pointer;
 }
 
 .menu-item {
-  margin-bottom: 13px;
+  margin-bottom: 10px;
+  height: 15px;
 }
 
 .menu-item:hover {
-  border-bottom: 1px solid rgba(243, 246, 249, 0.5);
+  background-color: rgba(243, 246, 249, 0.5);
 }
