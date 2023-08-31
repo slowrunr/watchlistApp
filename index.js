@@ -1,31 +1,34 @@
+const ITEMS_FROM_STORAGE = "stored-items";
+const MARK_AS_WATCHED = "watched";
 const STATUS_OUT_OF_DATA_CLASSNAME = "border-red";
-ITEMS_FROM_STORAGE = "stored-items";
 
 const movieTitleInputNode = document.getElementById("movieInput");
-const addMovieBtnNode = document.getElementById("addMovieBtn");
+const addMovieBtnNode = document.getElementById("addToWatchBtn");
 const movieListNode = document.getElementById("movieList");
+const checkboxNode = document.querySelector("checkbox");
+const watchlistItemTitle = document.getElementById("watchlist-item-title");
 
-let watchList = [];
+let watchlist = [];
 
-const addMovieHandler = () => {
+const addToWatchBtnHandler = () => {
   if (!movieTitleInputNode.value) {
-    // movieTitleInputNode.classlist.add("border-red");
+    movieTitleInputNode.classList.add(STATUS_OUT_OF_DATA_CLASSNAME);
     return;
   }
-  //   movieTitleInputNode.classlist.remove(STATUS_OUT_OF_DATA_CLASSNAME);
-  const watchListItem = movieTitleInputNode.value;
+  movieTitleInputNode.classList.remove(STATUS_OUT_OF_DATA_CLASSNAME);
+  const watchlistItem = movieTitleInputNode.value;
   movieTitleInputNode.value = "";
-  watchList.push(watchListItem);
-  // saveItemsInLocalStorage();
-  console.log(watchList);
+  watchlist.push(watchlistItem);
+  saveItemsInLocalStorage();
+  console.log(watchlist);
 
-  let watchListHTML = "";
-  watchList.forEach((element) => {
-    watchListHTML += `<li id="movieTitleWrapper" class="movie-title-wrapper">
+  let watchlistHTML = "";
+  watchlist.forEach((element) => {
+    watchlistHTML += `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
       <div class="checkbox-wrapper">
-      <button class="checkbox"></button>
+      <button id="checkbox" class="checkbox"></button>
       </div>
-      <p id="movieTitle" class="movie-title">${element}</p>
+      <p id="watchlistItemTitle" class="watchlist-item-title">${element}</p>
       <div class="close-btn-wrapper">
       <img
       id="removeFromListBtn"
@@ -35,13 +38,63 @@ const addMovieHandler = () => {
       </div>
     </li>`;
   });
-  movieListNode.innerHTML = `<ol>${watchListHTML}</ol>`;
+  movieListNode.innerHTML = `<ul id="watchlistHTML">${watchlistHTML}</ul>`;
 };
 
-// function saveItemsInLocalStorage() {
-//   const storedMoviesTitles = watchListItem;
-//   localStorage.setItem(ITEMS_FROM_STORAGE, storedMoviesTitles);
-//   console.log(expensesToString);
-// }
+// `<div id="${movie.id}" class="${cssClass}">
+//   <div class="checked__button-wrapper">
+//      <button class="checked__button" data-action="done">
+//         <img class="checked__button-img" src="images/unchecked.png" alt="checked button">
+//      </button>
+//       <p class="movie__name">${movie.text}</p>
+//   </div>
+//   <div class="delete__button-wrapper">
+//       <button class="delete__button" data-action="delete">
+//           <img class="delete__btn-img" src="images/delete-btn.png" alt="Delete button image">
+//       </button>
+//   </div>`;
 
-addMovieBtnNode.addEventListener("click", addMovieHandler);
+const saveItemsInLocalStorage = () => {
+  localStorage.setItem(ITEMS_FROM_STORAGE, JSON.stringify(watchlist));
+};
+
+const getItemsFromLocalStorage = () => {
+  if (localStorage.getItem(ITEMS_FROM_STORAGE)) {
+    movies = JSON.parse(localStorage.getItem(ITEMS_FROM_STORAGE));
+  }
+  return watchlist;
+};
+getItemsFromLocalStorage();
+
+const markIfWatchedHandler = () => {
+  checkbox.style.background = "#6532f8";
+};
+
+// const markItemAsWatched = (event) => {
+
+// };
+
+//   if (e.target.dataset.action !== "done") {
+//     return;
+//   }
+
+//   const parentNode = e.target.closest(".movie__list-container");
+
+//   const id = Number(parentNode.id);
+
+//   const movie = watchList.find((movie) => movie.id === id);
+
+//   movie.done = !movie.done;
+
+//   parentNode.classList.toggle("movie__list-container-done");
+
+//   saveItemsInLocalStorage();
+// };
+
+addMovieBtnNode.addEventListener("click", addToWatchBtnHandler);
+movieListNode.addEventListener("click", (event) => {
+  if (event.target.classList.contains("checkbox")) {
+    markIfWatchedHandler(event.target);
+  }
+});
+// movieListNode.addEventListener('click', removeFromListHandler);
