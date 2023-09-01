@@ -87,6 +87,11 @@ h1 {
   width: 62px;
   height: 62px;
   cursor: pointer;
+  background-color: unset;
+  background-image: url(icons/arrow-right-icon.png);
+  border-radius: 100px;
+  background-size: contain;
+  border: none;
 }
 
 .movie-list {
@@ -156,8 +161,10 @@ h1 {
   right: 20px;
   width: 23px;
   height: 23px;
-  background-size: contain;
   cursor: pointer;
+  background-color: unset;
+  background-size: cover;
+  border: none;
 }
 
 .crossed-out {

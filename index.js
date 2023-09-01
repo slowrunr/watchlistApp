@@ -26,15 +26,13 @@ const addToWatchBtnHandler = () => {
   watchlist.forEach((element) => {
     watchlistHTML += `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
       <div class="checkbox-wrapper">
-      <button id="checkbox" class="checkbox"></button>
+      <button id="checkbox" class="checkbox" data-action="watched"></button>
       </div>
       <p id="watchlistItemTitle" class="watchlist-item-title">${element}</p>
       <div class="close-btn-wrapper">
-      <img
-      id="removeFromListBtn"
-      class="remove-from-list-btn"
-      src="icons/close-block-icon.png"
-      />
+        <button id="removeFromListBtn"
+        class="remove-from-list-btn"
+        data-action="remove"></button>
       </div>
     </li>`;
   });
