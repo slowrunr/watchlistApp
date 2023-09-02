@@ -56,14 +56,14 @@ h1 {
   padding-left: 70px;
 }
 
-.movie-input-wrapper {
+.title-input-wrapper {
   margin-left: 13px;
   width: 411px;
   height: 45px;
   border-bottom: 1px solid rgba(243, 246, 249, 0.5);
 }
 
-.movie-input {
+.title-input {
   width: 100%;
   border: none;
   background: none;
@@ -72,11 +72,11 @@ h1 {
   color: #f3f6f9;
 }
 
-.movie-input:focus {
+.title-input:focus {
   outline: none;
 }
 
-.movie-input::placeholder {
+.title-input::placeholder {
   font-size: 30px;
   line-height: 35px;
   color: rgba(243, 246, 249, 0.5);
@@ -94,7 +94,7 @@ h1 {
   border: none;
 }
 
-.movie-list {
+.watchlist {
   margin: 0 auto;
   width: 790px;
   height: 100%;
@@ -120,7 +120,7 @@ h1 {
   opacity: 0.5;
 }
 
-.watched {
+.status-watched {
   background: #6532f8;
 }
 
@@ -136,7 +136,7 @@ h1 {
   width: 59px;
 }
 
-.checkbox {
+.status {
   display: block;
   position: absolute;
   top: 24px;
