@@ -5,9 +5,10 @@ const STATUS_OUT_OF_DATA_CLASSNAME = "border-red";
 const titleInputNode = document.getElementById("titleInput");
 const addMovieBtnNode = document.getElementById("addToWatchBtn");
 const watchlistNode = document.getElementById("watchlist");
-const checkboxNode = document.querySelector("checkbox");
-const watchlistItemTitle = document.getElementById("watchlist-item-title");
+// const checkboxNode = document.querySelector("checkbox");
+// const watchlistItemTitle = document.getElementById("watchlist-item-title");
 
+// создаем массив для списка для просмотра (далее - список)
 let watchlist = [];
 
 const getItemsFromLocalStorage = () => {
@@ -17,11 +18,38 @@ const getItemsFromLocalStorage = () => {
   renderWatchlist();
 };
 
-const renderWatchlist = () => {
-  watchlistNode.innerHTML = '';
+const saveItemsInLocalStorage = () => {
+  localStorage.setItem(TITLES_FROM_STORAGE, JSON.stringify(watchlist));
+};
 
-  watchlist.forEach((element) => {
-}
+//+ функция вывода списка на странице
+const renderWatchlist = () => {
+  watchlistNode.innerHTML = "";
+
+  watchlist.forEach((watchlistItem) => {
+    const watchlistHTML = `<li id="watchlistItemWrapper" class="watchlist-item-wrapper" ${
+      watchlistItem.isWatched ? "watched" : ""
+    }'>
+      <div class="checkbox-wrapper">
+        <button id="checkbox" class="checkbox" ${
+          watchlistItem.isWatched ? "watched" : ""
+        }></button>
+      </div>
+      <p id="watchlistItemTitle" class="watchlist-item-title">${
+        watchlistItem.title
+      }
+      </p>
+      <div class="close-btn-wrapper">
+        <button id="removeFromListBtn"
+        class="remove-from-list-btn"
+        data-action="remove"></button>
+       </div>
+      </li>;`;
+
+    watchlistNode.insertAdjacentHTML("beforeend", watchlistHTML);
+  });
+};
+
 //+ функция-обработчик для кнопки (add-2watch-btn) добавления названия контента в список просмотра
 const addToWatchBtnHandler = () => {
   if (!titleInputNode.value) {
@@ -29,119 +57,52 @@ const addToWatchBtnHandler = () => {
     return;
   }
   titleInputNode.classList.remove(STATUS_OUT_OF_DATA_CLASSNAME);
-  const watchlistItem = titleInputNode.value;
+  const watchlistItemTitle = titleInputNode.value.trim();
   titleInputNode.value = "";
+  const watchlistItem = {
+    title: watchlistItemTitle,
+    isWatched: false,
+  };
   watchlist.push(watchlistItem);
   saveItemsInLocalStorage();
   console.log(watchlist);
-
-  let watchlistHTML = "";
-
-  watchlist.forEach((watchlistItem) => {
-    const listItemHTML = `
-      <li class='movie ${watchlistItem.isChecked ? "checked" : ""}'>
-        <div class='movie-inner'>
-          <input class='movie-checkbox' id='checkbox' type='checkbox' ${watchlistItem.isChecked ? "checked" : ""} />
-          <label class='movie-name' for='checkbox'>${watchlistItem.title}</label>
-        </div>
-        <div class='movie-inner-btn'>
-          <button class='js-movie-remove-btn movie-remove-btn'></button>
-        </div>
-      </li>
-    `;
-
-    watchlistNode.insertAdjacentHTML('beforeend', listItemHTML);
-    });
-  };
-    
-    
-//     const itemStatus =
-//       watchlistItem.strike - out ? "status status-watched" : "status";
-
-//     watchlistHTML += `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
-//       <div class="checkbox-wrapper">
-//       <button id="checkbox" class="checkbox" data-action="watched"></button>
-//       </div>
-//       <p id="watchlistItemTitle" class="watchlist-item-title">${element}</p>
-//       <div class="close-btn-wrapper">
-//         <button id="removeFromListBtn"
-//         class="remove-from-list-btn"
-//         data-action="remove"></button>
-//       </div>
-//     </li>`;
-//   });
-//   movieListNode.innerHTML = `<ul id="watchlistHTML">${watchlistHTML}</ul>`;
-// };
-
-//   const addToWatchlist = (watchlistItem) => {
-    
-//     const setItemStatus = `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
-//         <div id="${watchlistItem.id}" class="${itemStatus}"> 
-//         <div class="checkbox-wrapper">
-//           <button id="status" 
-//           class="status" 
-//           data-action="strike-out">
-//           </button>
-//         </div>
-//         <p id="watchlistItemTitle" class="watchlist-item-title">${element}</p>
-//         <div class="close-btn-wrapper">
-//           <button id="removeFromListBtn"
-//           class="remove-from-list-btn"
-//           data-action="delete">
-//           </button>
-//         </div>
-//         </div>
-//         </li>`;
-//     return setItemStatus;
-//     = watchlist.forEach((element) => {
-      //   watchlistHTML += `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
-  };
-  // watchlistNode.innerHTML = `<ul id="watchlistHTML">${watchlistHTML}</ul>`;
+  renderWatchlist();
 };
 
-// `<div id="${movie.id}" class="${cssClass}">
-//   <div class="checked__button-wrapper">
-//      <button class="checked__button" data-action="done">
-//         <img class="checked__button-img" src="images/unchecked.png" alt="checked button">
-//      </button>
-//       <p class="movie__name">${movie.text}</p>
-//   </div>
-//   <div class="delete__button-wrapper">
-//       <button class="delete__button" data-action="delete">
-//           <img class="delete__btn-img" src="images/delete-btn.png" alt="Delete button image">
-//       </button>
-//   </div>`;
+// Обработчик события клика на кнопку удаления фильма
+watchlistNode.addEventListener("click", (event) => {
+  if (event.target.classList.contains("js-movie-remove-btn")) {
+    const listItem = event.target.closest(".movie");
+    const movieIndex = Array.from(listItem.parentNode.children).indexOf(
+      listItem
+    );
+    movies.splice(movieIndex, 1);
+    saveItemsInLocalStorage();
+    renderWatchlist();
+  }
+});
 
-const saveItemsInLocalStorage = () => {
-  localStorage.setItem(TITLES_FROM_STORAGE, JSON.stringify(watchlist));
-};
+// Обработчик события клика на чекбокс
+watchlistNode.addEventListener("click", (event) => {
+  if (event.target.classList.contains("movie-checkbox")) {
+    const watchlistItem = event.target.closest(".movie");
+    const movieIndex = Array.from(watchlistItem.parentNode.children).indexOf(
+      watchlistItem
+    );
+    movies[movieIndex].isChecked = !movies[movieIndex].isChecked;
+    saveItemsInLocalStorage();
+    renderWatchlist();
+  }
+});
 
-
+// Восстанавливаем список фильмов при загрузке страницы
+document.addEventListener("DOMContentLoaded", () => {
+  getItemsFromLocalStorage();
+});
 
 const markIfWatchedHandler = () => {
   checkbox.style.background = "#6532f8";
 };
-
-// const markItemAsWatched = (event) => {
-
-// };
-
-//   if (e.target.dataset.action !== "done") {
-//     return;
-//   }
-
-//   const parentNode = e.target.closest(".movie__list-container");
-
-//   const id = Number(parentNode.id);
-
-//   const movie = watchList.find((movie) => movie.id === id);
-
-//   movie.done = !movie.done;
-
-//   parentNode.classList.toggle("movie__list-container-done");
-
-//   saveItemsInLocalStorage();
-// };
 
 addMovieBtnNode.addEventListener("click", addToWatchBtnHandler);
 watchlistNode.addEventListener("click", (event) => {

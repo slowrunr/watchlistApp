@@ -38,3 +38,79 @@
 
 // const setItemStatus = watchlist.forEach((element) => {
 //   watchlistHTML += `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
+
+//     const itemStatus =
+//       watchlistItem.strike - out ? "status status-watched" : "status";
+
+//     watchlistHTML += `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
+//       <div class="checkbox-wrapper">
+//       <button id="checkbox" class="checkbox" data-action="watched"></button>
+//       </div>
+//       <p id="watchlistItemTitle" class="watchlist-item-title">${element}</p>
+//       <div class="close-btn-wrapper">
+//         <button id="removeFromListBtn"
+//         class="remove-from-list-btn"
+//         data-action="remove"></button>
+//       </div>
+//     </li>`;
+//   });
+//   movieListNode.innerHTML = `<ul id="watchlistHTML">${watchlistHTML}</ul>`;
+// };
+
+//   const addToWatchlist = (watchlistItem) => {
+
+//     const setItemStatus = `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
+//         <div id="${watchlistItem.id}" class="${itemStatus}">
+//         <div class="checkbox-wrapper">
+//           <button id="status"
+//           class="status"
+//           data-action="strike-out">
+//           </button>
+//         </div>
+//         <p id="watchlistItemTitle" class="watchlist-item-title">${element}</p>
+//         <div class="close-btn-wrapper">
+//           <button id="removeFromListBtn"
+//           class="remove-from-list-btn"
+//           data-action="delete">
+//           </button>
+//         </div>
+//         </div>
+//         </li>`;
+//     return setItemStatus;
+//     = watchlist.forEach((element) => {
+//   watchlistHTML += `<li id="watchlistItemWrapper" class="watchlist-item-wrapper">
+// watchlistNode.innerHTML = `<ul id="watchlistHTML">${watchlistHTML}</ul>`;
+
+// `<div id="${movie.id}" class="${cssClass}">
+//   <div class="checked__button-wrapper">
+//      <button class="checked__button" data-action="done">
+//         <img class="checked__button-img" src="images/unchecked.png" alt="checked button">
+//      </button>
+//       <p class="movie__name">${movie.text}</p>
+//   </div>
+//   <div class="delete__button-wrapper">
+//       <button class="delete__button" data-action="delete">
+//           <img class="delete__btn-img" src="images/delete-btn.png" alt="Delete button image">
+//       </button>
+//   </div>`;
+
+// const markItemAsWatched = (event) => {
+
+// };
+
+//   if (e.target.dataset.action !== "done") {
+//     return;
+//   }
+
+//   const parentNode = e.target.closest(".movie__list-container");
+
+//   const id = Number(parentNode.id);
+
+//   const movie = watchList.find((movie) => movie.id === id);
+
+//   movie.done = !movie.done;
+
+//   parentNode.classList.toggle("movie__list-container-done");
+
+//   saveItemsInLocalStorage();
+// };
