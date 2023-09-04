@@ -28,23 +28,22 @@ const renderWatchlist = () => {
 
   watchlist.forEach((watchlistItem) => {
     const watchlistHTML = `<li id="watchlistItemWrapper" class="watchlist-item-wrapper" ${
-      watchlistItem.isWatched ? "watched" : ""
+      watchlistItem.isChecked ? "checked" : ""
     }'>
       <div class="checkbox-wrapper">
-        <button id="checkbox" class="checkbox" ${
-          watchlistItem.isWatched ? "watched" : ""
-        }></button>
+        <input class='status-checkbox' id='checkbox' type='checkbox' ${
+          watchlistItem.isChecked ? "checked" : ""
+        } />
       </div>
-      <p id="watchlistItemTitle" class="watchlist-item-title">${
+      <label class='watchlistItemTitle' for='checkbox'>${
         watchlistItem.title
-      }
-      </p>
+      }</label>
       <div class="close-btn-wrapper">
         <button id="removeFromListBtn"
         class="remove-from-list-btn"
         data-action="remove"></button>
        </div>
-      </li>;`;
+      </li>`;
 
     watchlistNode.insertAdjacentHTML("beforeend", watchlistHTML);
   });

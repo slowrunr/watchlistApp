@@ -120,7 +120,7 @@ h1 {
   opacity: 0.5;
 }
 
-.status-watched {
+.checked {
   background: #6532f8;
 }
 
@@ -136,7 +136,7 @@ h1 {
   width: 59px;
 }
 
-.status {
+.status-checkbox {
   display: block;
   position: absolute;
   top: 24px;
