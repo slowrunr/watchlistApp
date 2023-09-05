@@ -1,3 +1,32 @@
+// Восстанавливаем список фильмов при загрузке страницы
+document.addEventListener("DOMContentLoaded", () => {
+  getItemsFromLocalStorage();
+});
+// Обработчик события клика на кнопку удаления фильма
+// watchlistNode.addEventListener("click", (event) => {
+//     if (event.target.classList.contains("js-movie-remove-btn")) {
+//       const listItem = event.target.closest(".movie");
+//       const movieIndex = Array.from(listItem.parentNode.children).indexOf(
+//         listItem
+//       );
+//       movies.splice(movieIndex, 1);
+//       saveItemsInLocalStorage();
+//       renderWatchlist();
+//     }
+//   });
+
+//   // Обработчик события клика на чекбокс
+//   watchlistNode.addEventListener("click", (event) => {
+//     if (event.target.classList.contains("movie-checkbox")) {
+//       const watchlistItem = event.target.closest(".movie");
+//       const movieIndex = Array.from(watchlistItem.parentNode.children).indexOf(
+//         watchlistItem
+//       );
+//       movies[movieIndex].isChecked = !movies[movieIndex].isChecked;
+//       saveItemsInLocalStorage();
+//       renderWatchlist();
+//     }
+//   });
 // функция сворачивания окна при нажатии за пределами меню
 // dropdownMenuNode.addEventListener("click", (event) => {
 //   const isClickOutsideContent = !event
