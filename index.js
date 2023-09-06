@@ -24,30 +24,24 @@ const saveItemsInLocalStorage = () => {
 
 //+ функция вывода списка на странице
 const renderWatchlist = () => {
-  watchlistNode.innerHTML = "";
-
   watchlist.forEach((watchlistItem) => {
-    const watchlistHTML = `<li id="watchlistItemWrapper" class="watchlist-item-wrapper" ${
-      watchlistItem.isChecked ? "checked" : ""
-    }'>
+    const watchlistHTML = `<li id="watchlistItemWrapper" class="watchlist-item-wrapper" >
       <div class="checkbox-wrapper">
-        <input class='status-checkbox' id='checkbox' type='checkbox' ${
-          watchlistItem.isChecked ? "checked" : ""
-        } />
+        <button class='status-checkbox' id='checkbox' data-action="done"></button>
       </div>
-      <label class='watchlist-item-title' for='checkbox'>${
-        watchlistItem.title
-      }</label>
+      <p class='watchlist-item-title'>${watchlistItem.title}</p>
       <div class="close-btn-wrapper">
         <button id="removeFromListBtn"
         class="remove-from-list-btn"
-        data-action="remove"></button>
+        data-action="delete"></button>
        </div>
-      </li>`;
+    </li>`;
 
     watchlistNode.insertAdjacentHTML("beforeend", watchlistHTML);
   });
 };
+
+getItemsFromLocalStorage();
 
 //+ функция-обработчик для кнопки (add-2watch-btn) добавления названия контента в список просмотра
 const addToWatchBtnHandler = () => {
@@ -58,6 +52,7 @@ const addToWatchBtnHandler = () => {
   titleInputNode.classList.remove(STATUS_OUT_OF_DATA_CLASSNAME);
   const watchlistItemTitle = titleInputNode.value.trim();
   titleInputNode.value = "";
+  titleInputNode.focus();
   const watchlistItem = {
     title: watchlistItemTitle,
     checked: false,
@@ -72,10 +67,21 @@ const markIfWatchedHandler = () => {
   checkbox.style.background = "#6532f8";
 };
 
-addMovieBtnNode.addEventListener("click", addToWatchBtnHandler);
-watchlistNode.addEventListener("click", (event) => {
-  if (event.target.classList.contains("checkbox")) {
-    markIfWatchedHandler(event.target);
+//
+function removeItemFromList(e) {
+  if (e.target.dataset.action === "delete") {
+    const parentNode = e.target.closest("li");
+    parentNode.remove();
   }
-});
+}
+
+function markItemAsWatched(e) {
+  if (e.target.dataset.action === "done") {
+    console.log("klo");
+  }
+}
+
+addMovieBtnNode.addEventListener("click", addToWatchBtnHandler);
+watchlistNode.addEventListener("click", removeItemFromList);
+watchlistNode.addEventListener("click", markItemAsWatched);
 // movieListNode.addEventListener('click', removeFromListHandler);

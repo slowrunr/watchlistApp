@@ -143,3 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //   saveItemsInLocalStorage();
 // };
+// (event) => {
+//     if (event.target.classList.contains("checkbox")) {
+//       markIfWatchedHandler(event.target);
+//     }
+//   });
