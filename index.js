@@ -27,9 +27,9 @@ const renderWatchlist = () => {
   watchlist.forEach((watchlistItem) => {
     const watchlistHTML = `<li id="watchlistItemWrapper" class="watchlist-item-wrapper" >
       <div class="checkbox-wrapper">
-        <button class='status-checkbox' id='checkbox' data-action="done"></button>
+        <button class='status-checkbox' data-action="done"></button>
       </div>
-      <p class='watchlist-item-title'>${watchlistItem.title}</p>
+      <span class='watchlist-item-title watchlist-item-title--done'>${watchlistItem.title}</span>
       <div class="close-btn-wrapper">
         <button id="removeFromListBtn"
         class="remove-from-list-btn"
@@ -77,7 +77,14 @@ function removeItemFromList(e) {
 
 function markItemAsWatched(e) {
   if (e.target.dataset.action === "done") {
-    console.log("klo");
+    const parentNode = e.target.closest("li");
+    const itemStatus = parentNode.querySelector(".status-checkbox");
+    const watchlistItemTitle = parentNode.querySelector(
+      ".watchlist-item-title"
+    );
+    parentNode.classList.add("shaded");
+    itemStatus.classList.add("watched");
+    watchlistItemTitle.classList.add("crossed-out");
   }
 }
 
