@@ -58,7 +58,7 @@ h1 {
 }
 
 .title-input-wrapper {
-  margin-left: 13px;
+  padding-left: 13px;
   width: 411px;
   height: 45px;
   border-bottom: 1px solid rgba(243, 246, 249, 0.5);

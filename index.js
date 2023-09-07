@@ -1,4 +1,3 @@
-const TITLES_FROM_STORAGE = "saved-items";
 const CROSSED_OUT_TITLE = "crossed-out";
 const ITEM_STATUS_WATCHED = "watched";
 const SHADED_ITEM_WRAPPER = "shaded";
@@ -9,6 +8,12 @@ const addMovieBtnNode = document.getElementById("addToWatchBtn");
 const watchlistNode = document.getElementById("watchlist");
 
 let watchlist = [];
+
+if (localStorage.getItem("watchlist")) {
+  watchlist = JSON.parse(localStorage.getItem("watchlist"));
+  //console.log(watchlist);
+  watchlist.forEach((watchlistItem) => renderWatchlistItem(watchlistItem));
+}
 
 function addToWatchBtnHandler() {
   if (!titleInputNode.value) {
@@ -27,46 +32,16 @@ function addToWatchBtnHandler() {
     watchlistTitleStyle: false,
   };
 
-  const itemWrapperStyle = watchlistItem.itemWrapperStyle
-    ? "watchlist-item-wrapper shaded"
-    : "watchlist-item-wrapper";
-
-  const checkboxStyle = watchlistItem.checkboxStyleStyle
-    ? "status-checkbox watched"
-    : "status-checkbox";
-
-  const watchlistTitleStyle = watchlistItem.watchlistTitleStyle
-    ? "watchlist-item-title crossed-out"
-    : "watchlist-item-title";
-
-  const watchlistHTML = `<li id="${watchlistItem.id}" class="${itemWrapperStyle}" >
-    <div class="checkbox-wrapper">
-      <button class='${checkboxStyle}' data-action="done"></button>
-    </div>
-    <span class='${watchlistTitleStyle}'>${watchlistItem.text}</span>
-    <div class="close-btn-wrapper">
-      <button id="removeFromListBtn"
-      class="remove-from-list-btn"
-      data-action="delete"></button>
-     </div>
-  </li>`;
-
-  watchlistNode.insertAdjacentHTML("beforeend", watchlistHTML);
+  renderWatchlistItem(watchlistItem);
 
   watchlist.push(watchlistItem);
 
-  console.log(watchlist);
-
-  saveItemsInLocalStorage();
+  saveItemsToLocalStorage();
 
   titleInputNode.value = "";
 
   titleInputNode.focus();
 }
-
-// function renderWatchlistItem(watchlistItem) {
-
-// }
 
 function removeItemFromList(e) {
   if (e.target.dataset.action !== "delete") return;
@@ -80,19 +55,35 @@ function removeItemFromList(e) {
   // watchlist = watchlist.filter(
   //   (watchlistItem) => watchlistItem.id !== watchlistItemId
   // );
-  console.log(index);
+  //console.log(index);
   watchlist.splice(index, 1);
+
+  saveItemsToLocalStorage();
+
   parentNode.remove();
 }
 
 function markItemAsWatched(e) {
   if (e.target.dataset.action !== "done") return;
   const parentNode = e.target.closest("li");
+  const watchlistItemId = Number(parentNode.id);
+  const watchlistItem = watchlist.find(
+    (watchlistItem) => watchlistItemId === watchlistItem.id
+  );
+
+  console.log(watchlistItem);
+
+  watchlistItem.itemWrapperStyle = !watchlistItem.itemWrapperStyle;
+  watchlistItem.checkboxStyle = !watchlistItem.checkboxStyle;
+  watchlistItem.watchlistTitleStyle = !watchlistItem.watchlistTitleStyle;
+
+  saveItemsToLocalStorage();
+
   const itemStatus = parentNode.querySelector(".status-checkbox");
   const watchlistItemTitle = parentNode.querySelector(".watchlist-item-title");
-  parentNode.classList.toggle(SHADED_ITEM_WRAPPER);
-  itemStatus.classList.toggle(ITEM_STATUS_WATCHED);
-  watchlistItemTitle.classList.toggle(CROSSED_OUT_TITLE);
+  parentNode.classList.add(SHADED_ITEM_WRAPPER);
+  itemStatus.classList.add(ITEM_STATUS_WATCHED);
+  watchlistItemTitle.classList.add(CROSSED_OUT_TITLE);
 }
 
 addMovieBtnNode.addEventListener("click", addToWatchBtnHandler);
@@ -106,6 +97,34 @@ function getItemsFromLocalStorage() {
   renderWatchlistItem();
 }
 
-function saveItemsInLocalStorage() {
-  localStorage.setItem(TITLES_FROM_STORAGE, JSON.stringify(watchlist));
+function saveItemsToLocalStorage() {
+  localStorage.setItem("watchlist", JSON.stringify(watchlist));
+}
+
+function renderWatchlistItem(watchlistItem) {
+  const itemWrapperStyle = watchlistItem.itemWrapperStyle
+    ? "watchlist-item-wrapper shaded"
+    : "watchlist-item-wrapper";
+
+  const checkboxStyle = watchlistItem.checkboxStyle
+    ? "status-checkbox watched"
+    : "status-checkbox";
+
+  const watchlistTitleStyle = watchlistItem.watchlistTitleStyle
+    ? "watchlist-item-title crossed-out"
+    : "watchlist-item-title";
+
+  const watchlistHTML = `<li id="${watchlistItem.id}" class="${itemWrapperStyle}" >
+  <div class="checkbox-wrapper">
+    <button class='${checkboxStyle}' data-action="done"></button>
+  </div>
+  <span class='${watchlistTitleStyle}'>${watchlistItem.text}</span>
+  <div class="close-btn-wrapper">
+    <button id="removeFromListBtn"
+    class="remove-from-list-btn"
+    data-action="delete"></button>
+   </div>
+</li>`;
+
+  watchlistNode.insertAdjacentHTML("beforeend", watchlistHTML);
 }
