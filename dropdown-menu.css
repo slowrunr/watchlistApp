@@ -11,6 +11,7 @@
 }
 
 .dropdown::before {
+  display: none;
   content: "";
   position: absolute;
   top: 10px;
@@ -53,8 +54,9 @@
 }
 
 .menu-item {
-  margin-bottom: 10px;
-  height: 15px;
+  margin-bottom: 8px;
+  min-height: 15px;
+  border-radius: 3px;
 }
 
 .menu-item:hover {
