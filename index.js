@@ -20,7 +20,6 @@ function addToWatchBtnHandler() {
     titleInputNode.classList.add(STATUS_OUT_OF_DATA_CLASSNAME);
     return;
   }
-  titleInputNode.classList.remove(STATUS_OUT_OF_DATA_CLASSNAME);
 
   const watchlistItemTitle = titleInputNode.value.trim();
 
@@ -81,14 +80,10 @@ function markItemAsWatched(e) {
 
   const itemStatus = parentNode.querySelector(".status-checkbox");
   const watchlistItemTitle = parentNode.querySelector(".watchlist-item-title");
-  parentNode.classList.add(SHADED_ITEM_WRAPPER);
-  itemStatus.classList.add(ITEM_STATUS_WATCHED);
-  watchlistItemTitle.classList.add(CROSSED_OUT_TITLE);
+  parentNode.classList.toggle(SHADED_ITEM_WRAPPER);
+  itemStatus.classList.toggle(ITEM_STATUS_WATCHED);
+  watchlistItemTitle.classList.toggle(CROSSED_OUT_TITLE);
 }
-
-addMovieBtnNode.addEventListener("click", addToWatchBtnHandler);
-watchlistNode.addEventListener("click", removeItemFromList);
-watchlistNode.addEventListener("click", markItemAsWatched);
 
 function getItemsFromLocalStorage() {
   if (localStorage.getItem(TITLES_FROM_STORAGE)) {
@@ -128,3 +123,12 @@ function renderWatchlistItem(watchlistItem) {
 
   watchlistNode.insertAdjacentHTML("beforeend", watchlistHTML);
 }
+
+function removeBorderRed(e) {
+  titleInputNode.classList.remove(STATUS_OUT_OF_DATA_CLASSNAME);
+}
+
+addMovieBtnNode.addEventListener("click", addToWatchBtnHandler);
+titleInputNode.addEventListener("keydown", removeBorderRed);
+watchlistNode.addEventListener("click", removeItemFromList);
+watchlistNode.addEventListener("click", markItemAsWatched);
