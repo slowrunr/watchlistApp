@@ -111,9 +111,9 @@ function renderWatchlistItem(watchlistItem) {
 
   const watchlistHTML = `<li id="${watchlistItem.id}" class="${itemWrapperStyle}" >
   <div class="checkbox-wrapper">
-    <button class='${checkboxStyle}' data-action="done"></button>
+  <input id='checkbox' type='checkbox' class='${checkboxStyle}' data-action="done"/>
   </div>
-  <span class='${watchlistTitleStyle}'>${watchlistItem.text}</span>
+  <label class='${watchlistTitleStyle}'>${watchlistItem.text}</label>
   <div class="close-btn-wrapper">
     <button id="removeFromListBtn"
     class="remove-from-list-btn"
