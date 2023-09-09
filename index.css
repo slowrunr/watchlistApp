@@ -117,23 +117,6 @@ h1 {
   background-color: darkslategray;
 }
 
-.shaded {
-  opacity: 0.5;
-}
-
-.watched {
-  background: #6532f8;
-}
-
-.watchlist-item-title {
-  overflow: hidden;
-  width: 85%;
-  font-size: 20px;
-  line-height: 77px;
-  letter-spacing: -0.4px;
-  text-align: left;
-}
-
 .checkbox-wrapper {
   width: 64px;
 }
@@ -149,6 +132,29 @@ h1 {
   border: 1px solid #f3f6f9;
   opacity: 0.3;
   cursor: pointer;
+}
+
+.status-checkbox:checked {
+  background: #6532f8;
+}
+
+.status-checkbox:checked ~ .watchlist-item-title {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.checked {
+  opacity: 0.5;
+}
+
+.watchlist-item-title {
+  overflow: hidden;
+  width: 85%;
+  color: #f3f6f9;
+  font-size: 20px;
+  line-height: 77px;
+  letter-spacing: -0.4px;
+  text-align: left;
 }
 
 .close-btn-wrapper {
@@ -167,12 +173,6 @@ h1 {
   background-color: unset;
   background-size: cover;
   border: none;
-}
-
-.crossed-out {
-  color: #f3f6f9;
-  opacity: 0.5;
-  text-decoration: line-through;
 }
 
 .border-red {

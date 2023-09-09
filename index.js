@@ -26,9 +26,7 @@ function addToWatchBtnHandler() {
   const watchlistItem = {
     id: Date.now(),
     text: watchlistItemTitle,
-    itemWrapperStyle: false,
-    checkboxStyle: false,
-    watchlistTitleStyle: false,
+    isChecked: false,
   };
 
   renderWatchlistItem(watchlistItem);
@@ -63,26 +61,33 @@ function removeItemFromList(e) {
 }
 
 function markItemAsWatched(e) {
-  if (e.target.dataset.action !== "done") return;
-  const parentNode = e.target.closest("li");
-  const watchlistItemId = Number(parentNode.id);
-  const watchlistItem = watchlist.find(
-    (watchlistItem) => watchlistItemId === watchlistItem.id
-  );
+  if (e.target.classList.contains("status-checkbox")) {
+    const watchlistItem = e.target.closest(".watchlist-item-wrapper");
+    // const movieIndex = Array.from(movieItem.parentNode.children).indexOf(movieItem);
+    // movies[movieIndex].isChecked = !movies[movieIndex].isChecked;
 
-  console.log(watchlistItem);
+    // if (e.target.dataset.action !== "done") return;
+    // const parentNode = e.target.closest("li");
+    // const watchlistItemId = Number(parentNode.id);
+    // const watchlistItem = watchlist.find(
+    //   (watchlistItem) => watchlistItemId === watchlistItem.id
+    // );
 
-  watchlistItem.itemWrapperStyle = !watchlistItem.itemWrapperStyle;
-  watchlistItem.checkboxStyle = !watchlistItem.checkboxStyle;
-  watchlistItem.watchlistTitleStyle = !watchlistItem.watchlistTitleStyle;
+    console.log(watchlistItem);
+    watchlistItem.isChecked = !watchlistItem.isChecked;
 
-  saveItemsToLocalStorage();
+    // watchlistItem.itemWrapperStyle = !watchlistItem.itemWrapperStyle;
+    // watchlistItem.checkboxStyle = !watchlistItem.checkboxStyle;
+    // watchlistItem.watchlistTitleStyle = !watchlistItem.watchlistTitleStyle;
 
-  const itemStatus = parentNode.querySelector(".status-checkbox");
-  const watchlistItemTitle = parentNode.querySelector(".watchlist-item-title");
-  parentNode.classList.toggle(SHADED_ITEM_WRAPPER);
-  itemStatus.classList.toggle(ITEM_STATUS_WATCHED);
-  watchlistItemTitle.classList.toggle(CROSSED_OUT_TITLE);
+    saveItemsToLocalStorage();
+
+    // const itemStatus = parentNode.querySelector(".status-checkbox");
+    // const watchlistItemTitle = parentNode.querySelector(".watchlist-item-title");
+    // parentNode.classList.toggle(SHADED_ITEM_WRAPPER);
+    // itemStatus.classList.toggle(ITEM_STATUS_WATCHED);
+    // watchlistItemTitle.classList.toggle(CROSSED_OUT_TITLE);
+  }
 }
 
 function getItemsFromLocalStorage() {
@@ -97,23 +102,27 @@ function saveItemsToLocalStorage() {
 }
 
 function renderWatchlistItem(watchlistItem) {
-  const itemWrapperStyle = watchlistItem.itemWrapperStyle
-    ? "watchlist-item-wrapper shaded"
-    : "watchlist-item-wrapper";
+  // const checkboxStyle = watchlistItem.isChecked
+  //   ? "status-checkbox checked"
+  //   : "status-checkbox";
 
-  const checkboxStyle = watchlistItem.checkboxStyle
-    ? "status-checkbox watched"
-    : "status-checkbox";
+  // const watchlistTitleStyle = watchlistItem.watchlistTitleStyle
+  //   ? "watchlist-item-title crossed-out"
+  //   : "watchlist-item-title";
 
-  const watchlistTitleStyle = watchlistItem.watchlistTitleStyle
-    ? "watchlist-item-title crossed-out"
-    : "watchlist-item-title";
-
-  const watchlistHTML = `<li id="${watchlistItem.id}" class="${itemWrapperStyle}" >
+  const watchlistHTML = `<li id="${
+    watchlistItem.id
+  }" class='watchlist-item-wrapper ${
+    watchlistItem.isChecked ? "checked" : ""
+  }' >
   <div class="checkbox-wrapper">
-  <input id='checkbox' type='checkbox' class='${checkboxStyle}' data-action="done"/>
+  <input id='checkbox' type='checkbox' class='status-checkbox ${
+    watchlistItem.isChecked ? "status-checkbox checked" : "status-checkbox"
+  }' data-action="done"/>
   </div>
-  <label class='${watchlistTitleStyle}'>${watchlistItem.text}</label>
+  <label class="watchlist-item-title" for="checkbox">${
+    watchlistItem.text
+  }</label>
   <div class="close-btn-wrapper">
     <button id="removeFromListBtn"
     class="remove-from-list-btn"
