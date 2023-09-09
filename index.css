@@ -98,7 +98,25 @@ h1 {
 .watchlist {
   margin: 0 auto;
   width: 790px;
-  height: 100%;
+  max-height: 665px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow-y: auto;
+}
+
+.watchlist::-webkit-scrollbar {
+  width: 10px;
+}
+
+.watchlist::-webkit-scrollbar-track {
+  background-color: #3a3939;
+  border-radius: 15px;
+}
+
+.watchlist::-webkit-scrollbar-thumb {
+  background-color: #6532f8;
+  border-radius: 15px;
 }
 
 .watchlist-item-wrapper {
@@ -123,6 +141,12 @@ h1 {
 
 .watched {
   background: #6532f8;
+}
+
+.crossed-out {
+  color: #f3f6f9;
+  opacity: 0.5;
+  text-decoration: line-through;
 }
 
 .watchlist-item-title {
@@ -167,12 +191,6 @@ h1 {
   background-color: unset;
   background-size: cover;
   border: none;
-}
-
-.crossed-out {
-  color: #f3f6f9;
-  opacity: 0.5;
-  text-decoration: line-through;
 }
 
 .border-red {
