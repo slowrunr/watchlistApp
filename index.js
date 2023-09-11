@@ -111,9 +111,9 @@ function renderWatchlistItem(watchlistItem) {
 
   const watchlistHTML = `<li id="${watchlistItem.id}" class="${itemWrapperStyle}" >
   <div class="checkbox-wrapper">
-  <input id='checkbox' type='checkbox' class='${checkboxStyle}' data-action="done"/>
+  <input id='checkbox' type='checkbox' class='${checkboxStyle}' data-action="done" />
   </div>
-  <label class='${watchlistTitleStyle}'>${watchlistItem.text}</label>
+  <label class='${watchlistTitleStyle}' data-action="done">${watchlistItem.text} </label>
   <div class="close-btn-wrapper">
     <button id="removeFromListBtn"
     class="remove-from-list-btn"
@@ -128,7 +128,15 @@ function removeBorderRed(e) {
   titleInputNode.classList.remove(STATUS_OUT_OF_DATA_CLASSNAME);
 }
 
+function triggerBtnEnter(e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    document.getElementById("addToWatchBtn").click();
+  }
+}
+
 addMovieBtnNode.addEventListener("click", addToWatchBtnHandler);
 titleInputNode.addEventListener("keydown", removeBorderRed);
+titleInputNode.addEventListener("keypress", triggerBtnEnter);
 watchlistNode.addEventListener("click", removeItemFromList);
 watchlistNode.addEventListener("click", markItemAsWatched);

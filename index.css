@@ -156,6 +156,7 @@ h1 {
   line-height: 77px;
   letter-spacing: -0.4px;
   text-align: left;
+  cursor: pointer;
 }
 
 .checkbox-wrapper {
