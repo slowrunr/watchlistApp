@@ -1,0 +1,14 @@
+{
+  "name": "watchlistapp",
+  "version": "1.0.0",
+  "description": "https://slowrunr.github.io/watchlistApp/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "parcel build --no-source-maps --dist-dir prod"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
